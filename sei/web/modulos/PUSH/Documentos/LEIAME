@@ -1,0 +1,142 @@
+=============================================
+Módulo de Concatenação de documentos
+Data de criação: 04/04/2017
+Desenvolvimento: Diego Felix (elogroup) e Daniel Gomes (elogroup)
+Versão: 1.0.0
+=============================================
+
+==================================
+PROCEDIMENTOS PARA INSTALAÇÃO:
+==================================
+
+1 - Acesse o arquivo ConfiguraçãoSEI
+	1.1 - No método getArrConfiguracoes, localize o array SEI, e em seguida o array interno Modulos. 
+	1.2 - Acrescente a linha 'PUSHintegracao' => 'PUSH' dentro do array Modulos
+	
+2 - Executar o script localizado na pasta scripts dentro do módulo do PUSH;
+
+SIP:
+
+1 - Criar os Recursos:
+push_alterar
+push_excluir
+push_listar
+push_consultar
+push_enviar_email
+push_descadastrar
+push_notificacao_cadastrar
+push_notificacao_alterar
+push_notificacao_excluir
+push_notificacao_listar
+push_notificacao_consultar
+push_notificacao_selecionar
+push_variavel_cadastrar
+push_variavel_alterar
+push_variavel_consultar
+push_variavel_listar
+push_variavel_excluir
+push_bloqueio_notificacao_cadastrar
+push_bloqueio_notificacao_listar
+push_bloqueio_notificacao_excluir
+push_bloqueio_notificacao_consultar
+push_email_controle_cadastrar
+push_email_controle_alterar
+push_email_controle_listar
+push_email_controle_consultar
+push_config_cadastrar
+push_config_alterar
+push_config_excluir
+push_config_listar
+push_config_consultar
+
+
+2 - Criar item de menu principal do módulo:
+	2.1 - Órgão do Sistema - "MF"
+	2.2 - Sistema - "SEI"
+	2.3 - Menu - "Principal"
+	2.4 - Marcar o checkbox "Raiz"
+	2.5 - Recurso - Vazio
+	2.6 - Rótulo = "Módulo PUSH"
+	2.7 - Descrição - Vazio
+	2.8 - Sequência - 83
+	2.9 - Desmarcar checkbox "Abrir em uma nova janela"
+	2.10 - Criar submenu "Notificações"
+		2.10.1 - Órgão do Sistema - "MF"
+		2.10.2 - Sistema - "SEI"
+		2.10.3 - Menu - "Principal"
+		2.10.4 - Desmarcar o checkbox "Raiz"
+		2.10.5 - Recurso - "push_notificacao_listar"
+		2.10.6 - Rótulo = "Notificações"
+		2.10.7 - Descrição - Vazio
+		2.10.8 - Sequência - 10
+		2.10.9 - Desmarcar checkbox "Abrir em uma nova janela"
+    2.11 - Criar submenu "Variáveis"
+        2.11.1 - Órgão do Sistema - "MF"
+        2.11.2 - Sistema - "SEI"
+        2.11.3 - Menu - "Principal"
+        2.11.4 - Desmarcar o checkbox "Raiz"
+        2.11.5 - Recurso - "push_variavel_listar"
+        2.11.6 - Rótulo = "Variáveis"
+        2.11.7 - Descrição - Vazio
+        2.11.8 - Sequência - 20
+        2.11.9 - Desmarcar checkbox "Abrir em uma nova janela"
+    2.12 - Criar submenu "Assinaturas"
+        2.12.1 - Órgão do Sistema - "MF"
+        2.12.2 - Sistema - "SEI"
+        2.12.3 - Menu - "Principal"
+        2.12.4 - Desmarcar o checkbox "Raiz"
+        2.12.5 - Recurso - "push_listar"
+        2.12.6 - Rótulo = "Assinaturas"
+        2.12.7 - Descrição - Vazio
+        2.12.8 - Sequência - 30
+        2.12.9 - Desmarcar checkbox "Abrir em uma nova janela"
+    2.13 - Criar submenu "Bloqueios de notificação"
+        2.13.1 - Órgão do Sistema - "MF"
+        2.13.2 - Sistema - "SEI"
+        2.13.3 - Menu - "Principal"
+        2.13.4 - Desmarcar o checkbox "Raiz"
+        2.13.5 - Recurso - "push_bloqueio_notificacao_listar"
+        2.13.6 - Rótulo = "Bloqueios de notificação"
+        2.13.7 - Descrição - Vazio
+        2.13.8 - Sequência - 40
+        2.13.9 - Desmarcar checkbox "Abrir em uma nova janela"
+     2.14 - Criar submenu "Configurações"
+        2.14.1 - Órgão do Sistema - "MF"
+        2.14.2 - Sistema - "SEI"
+        2.14.3 - Menu - "Principal"
+        2.14.4 - Desmarcar o checkbox "Raiz"
+        2.14.5 - Recurso - "push_config_listar"
+        2.14.6 - Rótulo = "Configurações"
+        2.14.7 - Descrição - Vazio
+        2.14.8 - Sequência - 50
+        2.14.9 - Desmarcar checkbox "Abrir em uma nova janela"
+
+3 - Associar os recursos e os itens de menu criados ao perfil Administrador
+
+SEI:
+
+1 - Criar Agendamento
+	1.1 - Acessar o menu Infra/Agendamentos
+	1.2 - Criar novos Agendamentos
+		1.2.1 - Criar novo agendamento de tabela de controle de envio de e-mails
+			1.2.1.1 - Descrição: Adição de notificações de envio de e-mails do PUSH na tabela de controle
+			1.2.1.2 - Comando: PushAgendamentoRN :: enviarEmailControlePush
+			1.2.1.3 - Periodicidade de Execução: Diário
+			1.2.1.4 - Complemento da Periodicidade: 1
+		1.2.2 - Criar novo agendamento de verificação e envio de e-mails periódicos do PUSH
+			1.2.2.1 - Descrição: Verificação e envio de e-mails periódicos do PUSH.
+			1.2.2.2 - Comando: PushAgendamentoRN :: enviarEmailPush
+			1.2.2.3 - Periodicidade de Execução: Diário
+			1.2.2.4 - Complemento da Periodicidade: 1
+			
+OBS: Esses valores são sugeridos e devem ser revistos no início do projeto.
+
+2 - Criar configs do PUSH:
+	2.1 - Acessar o menu Módulo PUSH/Configuração
+	2.2 - Clicar no botão Novo
+		2.2.1 - Criar configuração com nome "NumeroAndamentos" e Valor igual ao valor padrão para a quantidade
+		de andamentos para serem exibidos no e-mail de andamentos do PUSH (atualmente 5)
+		2.2.1 - Clique em salvar
+		2.2.2 - Criar configuração com nome "ID_TEMPLATE_CONFIRMACAO_CADASTRO_PROCESSO_PUSH" e o Valor igual ao ID
+		do template do e-mail de confirmação de cadastro de processo no push (verificar na base após a execução
+		do script de instalação)
